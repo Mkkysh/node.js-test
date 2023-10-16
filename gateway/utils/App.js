@@ -6,6 +6,7 @@ class App extends Gateway{
     }
 
     useRoutes(router) {
+            
         router.routes.forEach(route => {
             if (route.method === 'GET') {
                 this.get(route.path, async (req, res) => {

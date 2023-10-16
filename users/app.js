@@ -13,6 +13,11 @@ const app = new App({
 const router = require('./routes/index');
 app.useRoutes(router);
 
+// app.use((req, res, next) => {
+//   req.parsed = JSON.parse(req.body);
+//   next();
+// });
+
 (async () => {
   await sequelize.sync( {alter: true} );
   console.log('База данных синхронизирована');
