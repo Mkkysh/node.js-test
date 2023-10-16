@@ -2,10 +2,8 @@ const Router = require('../utils/Router');
 
 const router = new Router();
 
-router.route('GET', '/hello', async (req, res) => {
-    res.json({
-        message: 'hello',
-    });
-})
+const userController = require('../controllers/userController');
+
+router.route('POST', '/users', userController.addUser);
 
 module.exports = router;

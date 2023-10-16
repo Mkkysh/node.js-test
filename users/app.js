@@ -1,8 +1,6 @@
 require('dotenv').config();
-
-const MicroMQ = require('micromq');
-
 const App = require('./utils/App');
+const sequelize = require('./utils/db');
 
 const app = new App({
   name: 'users',
@@ -11,15 +9,15 @@ const app = new App({
   },
 });
 
-// app.get('/hello', async (req, res) => {
-//   res.json({
-//     message: 'hello',
-//   });
-// })
 
 const router = require('./routes/index');
 app.useRoutes(router);
 
+(async () => {
+  await sequelize.sync( {alter: true} );
+  console.log('База данных синхронизирована');
+})();
+
 app.start().then(() => {
-  console.log('started');
+  console.log('microservice users started');
 });
