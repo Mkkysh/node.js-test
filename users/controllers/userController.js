@@ -35,6 +35,11 @@ class UserController {
         try {
 
             let users = await userService.getUsers();
+
+            console.log(req.app!==undefined);
+
+           
+
             res.json(users).status(200);
             
         } catch (error) {

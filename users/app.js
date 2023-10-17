@@ -7,16 +7,11 @@ const app = new App({
   rabbit: {
     url: process.env.RABBIT_URL, //amqp://guest:guest@localhost:5672
   },
+  microservices: ['logger']
 });
-
 
 const router = require('./routes/index');
 app.useRoutes(router);
-
-// app.use((req, res, next) => {
-//   req.parsed = JSON.parse(req.body);
-//   next();
-// });
 
 (async () => {
   await sequelize.sync( {alter: true} );

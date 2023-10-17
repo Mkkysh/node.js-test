@@ -5,7 +5,7 @@ const errorHandler = require('./utils/ErrorHandler');
 const Gateway = require('micromq/gateway');
 
 const gateway = new App({
-  microservices: ['users'],
+  microservices: ['users', 'logger'],
   rabbit: {
     url: process.env.RABBIT_URL,
   },
