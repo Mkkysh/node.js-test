@@ -1,7 +1,7 @@
 const actions = require('../utils/Actions');
 
-actions.add('test', async (meta) => {
-    console.log('test')
-})
+const loggerController = require('../controllers/LoggerController');
+
+actions.add('addLog', loggerController.addLog);
 
 module.exports = actions;

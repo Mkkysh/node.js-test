@@ -7,7 +7,25 @@ class UserController {
         try {
             let { name, age } = req.body;
             let user = await userService.addUser(name, age);
-            res.json(user).status(201);
+            
+            let responseLog;
+
+            if (user) {
+                const { response } = await req.app.ask('logger', {
+                    server:{
+                        action: 'addLog',
+                        meta: {
+                            id_user: user.id,
+                            action: 'create'
+                        }
+                    }
+                });
+
+                responseLog = response;
+                
+            }
+
+            res.json({user: user, log: responseLog.status}).status(201);
 
         } catch (error) {
             console.log(error);
@@ -23,7 +41,24 @@ class UserController {
 
             let data = req.body;
             let message = await userService.patchUser(id, data);
-            res.json(message).status(200);
+
+            let responseLog;
+
+            if (message.message === 'ok') {
+                
+                const { response } = await req.app.ask('logger', {
+                    server:{
+                        action: 'addLog',
+                        meta: {
+                            id_user: id,
+                            action: 'update'
+                        }
+                    }
+                });
+                responseLog = response;
+            }
+
+            res.json({...message, log: responseLog}).status(200);
             
         } catch (error) {
             console.log(error);
@@ -37,8 +72,6 @@ class UserController {
             let users = await userService.getUsers();
 
             console.log(req.app!==undefined);
-
-           
 
             res.json(users).status(200);
             

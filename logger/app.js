@@ -1,6 +1,6 @@
 require('dotenv').config();
 const App = require('./utils/App');
-//const sequelize = require('./utils/db');
+const sequelize = require('./utils/db');
 
 const app = new App({
   name: 'logger',
@@ -9,16 +9,16 @@ const app = new App({
   },
 });
 
-// const router = require('./routes/index');
-// app.useRoutes(router);
+const router = require('./routes/index');
+app.useRoutes(router);
 
 const actions = require('./actions/actions');
 app.useActions(actions);
 
-// (async () => {
-//   await sequelize.sync( {alter: true} );
-//   console.log('База данных синхронизирована');
-// })();
+(async () => {
+  await sequelize.sync( {alter: true} );
+  console.log('База данных синхронизирована');
+})();
 
 
 app.start().then(() => {

@@ -15,8 +15,10 @@ const gateway = new App({
 
 //gateway.use(errorHandler.handle)
 
-const router = require('./routes/users');
-gateway.useRoutes(router);
+const userRouter = require('./routes/users');
+const loggerRouter = require('./routes/logger');
+gateway.useRoutes(userRouter);
+gateway.useRoutes(loggerRouter);
 
 gateway.listen(process.env.PORT).then(() => {
   console.log('gateway started');
